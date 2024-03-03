@@ -1,0 +1,9 @@
+<h1>Application Records Component</h1>
+<ag-grid-angular
+    style = "width: 100%; height: 800px;"
+    class = "ag-theme-alpine records-grid"
+    (gridReady) = "onGridReady($event)"
+    [rowData] = "rowData"
+    [rowSelection]="'multiple'"
+    [columnDefs]="colDefs">
+</ag-grid-angular>

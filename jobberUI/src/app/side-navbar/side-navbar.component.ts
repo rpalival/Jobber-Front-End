@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'jobber-side-navbar',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './side-navbar.component.html',
-  styleUrl: './side-navbar.component.scss'
+    selector: 'jobber-side-navbar',
+    standalone: true,
+    imports: [CommonModule, RouterModule],
+    templateUrl: './side-navbar.component.html',
+    styleUrl: './side-navbar.component.scss'
 })
 export class SideNavbarComponent {
 
