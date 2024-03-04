@@ -1,1 +1,4 @@
 <jobber-side-navbar [isExpanded]="sidebarExpanded" (toggleSidebar)="sidebarExpanded = !sidebarExpanded"></jobber-side-navbar>
+<div [ngClass]="{ 'sidebarExpanded' : sidebarExpanded }" class="students-record">
+    <router-outlet></router-outlet>
+</div>

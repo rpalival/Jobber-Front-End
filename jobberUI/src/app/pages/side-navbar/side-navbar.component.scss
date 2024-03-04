@@ -122,22 +122,22 @@
 				flex-direction: row;
 				
 				&:hover {
-					background: #ffffff;
+					background: #424141;
 					.title {
-						color: #211c19
+						color: #ffffff
 					}
 					svg {
-						fill: #211c19;
+						fill: #ffffff;
 					}
                     .icon {
-                        color: #211c19; // Match the icon color with the hover color
+                        color: #ffffff; // Match the icon color with the hover color
                     }
 				}
 		
 				&.active {
-					background: #ffffff;
+					background: #7e7a7a;
 					.title {
-					color: white;
+					color: #ffffff;
 					}
 				}
 		
@@ -151,7 +151,7 @@
 				.title {
 					flex: 1;
 					// display: none;
-					color: #ffffff;
+					color: #9b9595;
 					transition: 0.3s;
 					max-width: 0px;
 					overflow: hidden;
