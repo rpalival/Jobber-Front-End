@@ -1,0 +1,11 @@
+<ag-grid-angular
+    style = "width: 100%; height: 730px;"
+    class = "ag-theme-alpine records-grid"
+    (gridReady) = "onGrindReady($event)"
+    [rowData] = "rowData$ | async"
+    [rowSelection]="'multiple'"
+    [columnDefs]="colDefs"
+    [defaultColDef]="defaultColDef"
+    [animateRows]="true"
+>
+</ag-grid-angular>
