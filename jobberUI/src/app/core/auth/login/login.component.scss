@@ -1,0 +1,47 @@
+.login-section {
+    height: 100vh;
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__head {
+        text-transform: uppercase  !important;
+        margin-bottom: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #google-btn {
+        padding-bottom: 10px;
+    }
+    &__form {
+        padding: 57px;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        background-color:#211c19;
+
+        &--field {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+    }
+    .button-container {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    
+        button {
+            margin: 0;
+            padding: 0;
+        }
+    }
+}
