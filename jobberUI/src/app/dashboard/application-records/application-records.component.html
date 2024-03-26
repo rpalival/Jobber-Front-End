@@ -1,0 +1,93 @@
+<!-- List of other properties can be found here -->
+<!-- [pagination]="true" -->
+<div class="grid-section">
+    <button class="btn btn-outline-dark">Columns</button>
+    <button class="btn btn-dark" (click)="open(studentsForm)">Add a New Job</button>
+</div>
+<ng-template #confirmDeleteModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Profile Deletion</h4>
+        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <p>
+            <strong>Are you sure you want to delete <span class="text-primary"></span> profile?</strong>
+        </p>
+        <p>
+            All the records associated with this profile will be deleted.
+            <span class="text-danger">This operation cannot be undone.</span>
+        </p>
+        <div class="modal-footer">
+            <button class="btn-outline-secondary btn" (click)="modal.dismiss('Close button clicked')">Cancel</button>
+            <button class="btn btn-danger" (click)="modal.close('ok click')">Ok</button>
+        </div>
+    </div>
+</ng-template>
+<div class="applications-entry">
+    <ng-template #studentsForm let-modal>
+        <form class="student-entry-form">
+            <div class="student-entry-form__form-row">
+                Job Title
+                <div class="student-entry-form__form-row--input-section">
+                    <span class="form-group">
+                        <label for="inputName">Job Title</label>
+                        <input id="inputName" [formControl]="jobTitleControl" type="text" class="form-control" placeholder="Job Title">
+                    </span>
+                </div>
+            </div>
+            <div class="student-entry-form__form-row">
+                Job URL
+                <div class="student-entry-form__form-row--input-section">
+                    <span class="form-group">
+                        <label for="inputName">URL for original Job Application</label>
+                        <input id="inputName" [formControl]="jobURLControl" type="text" class="form-control" placeholder="job URL">
+                    </span>
+                </div>
+            </div>
+            <div class="student-entry-form__form-row">
+                Company
+                <div class="student-entry-form__form-row--input-section">
+                    <span class="form-group">
+                        <label for="inputName">Company Name</label>
+                        <input id="inputName" [formControl]="companyControl" type="text" class="form-control" placeholder="Company Name">
+                    </span>
+                </div>
+            </div>
+            <div class="student-entry-form__form-row">
+                Location
+                <div class="student-entry-form__form-row--input-section">
+                    <span class="form-group">
+                        <label for="inputName">Location</label>
+                        <input id="inputName" [formControl]="locationControl" type="text" class="form-control" placeholder="Job Location">
+                    </span>
+                </div>
+            </div>
+            <div class="student-entry-form__form-row">
+                Job Description
+                <div class="student-entry-form__form-row--input-section">
+                    <span class="form-group">
+                        <label for="inputName">Job Description</label>
+                        <input id="inputName" [formControl]="jobDescriptionControl" type="text" class="form-control" placeholder="Job Description">
+                    </span>
+                </div>
+            </div>
+            <div class="student-entry-form__form-row--input-buttons">
+                <button type="submit" class="btn btn-dark" (click)="modal.close()" [disabled]="jobDetailsForm.status === 'INVALID'">Submit</button>
+                <button type="submit" class="btn btn-light" (click)="modal.dismiss()">Cancel</button>
+            </div>
+        </form>
+    </ng-template>
+    <ag-grid-angular
+    style = "width: 100%; height: 730px;"
+    class = "ag-theme-alpine records-grid"
+    (gridReady) = "onGrindReady($event)"
+    [rowData] = "rowData$ | async"
+    [rowSelection]="'multiple'"
+    [autoSizeStrategy]="autoSizeStrategy"
+    [columnDefs]="colDefs"
+    [defaultColDef]="defaultColDef"
+    [animateRows]="true"
+    [dataTypeDefinitions]="dataTypeDefinitions"
+>
+</ag-grid-angular>
+</div>

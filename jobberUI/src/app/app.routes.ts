@@ -1,14 +1,27 @@
 import { Routes } from '@angular/router';
-import { ApplicationRecordsComponent } from './pages/application-records/application-records.component';
-import { HomepageComponent } from './pages/homepage/homepage.component';
+
+import { LoginComponent } from './core/auth/login/login.component';
+import { authGuardGuard } from './core/auth/auth-guard.guard';
+import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 
 export const routes: Routes = [
     {
-        path: 'homepage',
-        component: HomepageComponent
+        path: 'login',
+        component: LoginComponent
     },
     {
-        path: 'job-tracker',
-        component: ApplicationRecordsComponent
+        path: 'dashboard',
+        loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
+        canMatch: [authGuardGuard]
     }
+    // {
+    //     path: 'homepage',
+    //     component: HomepageComponent,
+    //     canMatch: [authGuardGuard]
+    // },
+    // {
+    //     path: 'job-tracker',
+    //     component: ApplicationRecordsComponent,
+    //     canMatch: [authGuardGuard]
+    // }
 ];

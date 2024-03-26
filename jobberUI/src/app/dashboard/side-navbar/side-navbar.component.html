@@ -4,13 +4,13 @@
 		<h1 class="title">
 			Jobber
 		</h1>
-		<div class="toggle" (click)="handleSidebarToggle()" (keydown)="handleSidebarToggle()" tabindex="0">
+		<div class="toggle" (click)="handleSidebarToggle()" tabindex="0">
 			<span class="chevron"></span>
 		</div>
     </div>
     <div class="content">
 		<div class="link">
-			<div class="content" [routerLink]="['/homepage']" [routerLinkActive]="['active']">
+			<div class="content" [routerLink]="['/dashboard/homepage']" [routerLinkActive]="['active']">
 				<div class="icon">
                     <i class="bi bi-house"></i>
 				</div>
@@ -26,7 +26,7 @@
 			</div>
 		</div>
 		<div class="link">
-			<div class="content" [routerLink]="['/job-tracker']" [routerLinkActive]="['active']">
+			<div class="content" [routerLink]="['/dashboard/job-tracker']" [routerLinkActive]="['active']">
 				<div class="icon">
                     <i class="bi bi-suitcase-lg"></i>
 				</div>
@@ -54,10 +54,7 @@
         <div class="content">
             <div class="footer">
                 <!-- <img src="assets/j-logo.png" alt="Brand Logo" class="me-1" style="width: 30px;"/> -->
-                <div class="avatar">{{ (username.split(' ')[0][0] + username.split(' ')[1][0]).toUpperCase() }}</div>
-                <h1 class="title">
-                    {{ username }}
-                </h1>
+                <div class="avatar">{{ username.includes(' ') ? (username.split(' ')[0][0] + username.split(' ')[1][0]).toUpperCase() : (username[0] + username[username.length - 1]).toUpperCase() }}</div>
             </div>
         </div>
     </div>

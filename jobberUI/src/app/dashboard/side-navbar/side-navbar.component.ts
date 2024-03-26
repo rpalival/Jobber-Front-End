@@ -1,12 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
     selector: 'jobber-side-navbar',
-    standalone: true,
-    imports: [CommonModule, RouterModule],
     templateUrl: './side-navbar.component.html',
+
     styleUrl: './side-navbar.component.scss'
 })
 export class SideNavbarComponent {
@@ -17,6 +15,6 @@ export class SideNavbarComponent {
 
     handleSidebarToggle = () => this.toggleSidebar.emit(!this.isExpanded);
 
-    username = 'Raj Palival';
-
+    auth = inject(AuthService);
+    username = JSON.parse(sessionStorage.getItem('loggedInUser')!).name;
 }
