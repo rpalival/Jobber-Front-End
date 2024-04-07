@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { NgbHighlight, NgbTypeaheadModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbHighlight, NgbTypeaheadModule, NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { AgGridModule } from 'ag-grid-angular';
 import { HttpClientModule } from '@angular/common/http';
-
+import 'ag-grid-enterprise';
 import { HomepageComponent } from './homepage/homepage.component';
 import { SideNavbarComponent } from './side-navbar/side-navbar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -43,6 +43,7 @@ const routes: Routes = [
     NgbHighlight,
     NgbTypeaheadModule,
     AgGridModule,
+    NgbModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes)

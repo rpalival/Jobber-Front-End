@@ -7,18 +7,46 @@ $btn-dark-bg: #211c19;
     border-color: rgb(0, 0, 0, 0.1);
     padding: 12px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+
+    .selection-delete-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    .add-and-filter-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .selection-bar {
+        border : 1px solid #121111;
+        padding: 4px 10px 4px 10px;
+        border-radius: 10px;
+    }
+
+    .filter-wrapper {
+        display: flex; /* Allow side-by-side placement */
+        align-items: center; /* Vertically center icon and text */
+      }
+      
+      .filter-input {
+        border-radius: 0.25rem; /* Adjust border radius as needed */
+        border: 1px solid #444649; /* Optional: Set border style */
+      }
+      
+      .bi-search {
+        font-size: 1.2rem; /* Adjust icon size as needed */
+        color: #444649; /* Adjust icon color as needed */
+      }
     
     button {
         & + button {
             margin-left: 20px; // Custom distance between buttons
         }
 
-        &.btn-outline-dark {
-            background-color: $btn-outline-dark-bg;
-            border-color: $btn-outline-dark-bg;
-            color: #fff; // Change text color if needed
-        }
+        
 
         &.btn-dark {
             background-color: $btn-dark-bg;
@@ -28,7 +56,42 @@ $btn-dark-bg: #211c19;
     }
 }
 
-.student-entry-form {
+.filter-section {
+    border-width: 0.1em;
+    border-style: solid;
+    border-color: rgb(0, 0, 0, 0.1);
+    padding: 12px;
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+
+    
+    button {
+        & + button {
+            margin-left: 20px; // Custom distance between buttons
+        }
+
+        padding: 9px 18px;
+        flex-grow: 1;
+        margin: 5px;
+        
+
+        // &.btn-outline-dark {
+        //     background-color: $btn-outline-dark-bg;
+        //     border-color: $btn-outline-dark-bg;
+        //     color: #fff; // Change text color if needed
+        // }
+
+        &.btn-dark {
+            background-color: $btn-dark-bg;
+            border-color: $btn-dark-bg;
+            color: #fff; // Change text color if needed
+        }
+    }
+}
+
+.application-entry-form {
     display: flex;
     flex-direction: column;
     align-items: center;
