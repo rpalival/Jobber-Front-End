@@ -48,7 +48,8 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "sourceMap": false
             },
             "development": {
               "optimization": false,
@@ -103,6 +104,9 @@
               "src/**/*.html"
             ]
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }

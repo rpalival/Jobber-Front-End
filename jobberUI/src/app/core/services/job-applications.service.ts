@@ -7,14 +7,12 @@ import { JobApplication } from '../../core/models/job-application.model';
 })
 export class JobApplicationsService {
 
-    private baseUrl = 'http://localhost:3002';
-
     constructor(
         private http: HttpClient
     ) {}
 
     callGetJobApplications(): Observable<JobApplication[]> {
-        return this.http.get<JobApplication[]>('api/jobApplications');
+        return this.http.get<JobApplication[]>('/api/r_applications/');
     }
 
     deleteJobApplication(id: number): Observable<void> {
