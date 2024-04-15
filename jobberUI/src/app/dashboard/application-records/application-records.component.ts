@@ -1,7 +1,7 @@
 import { Component, OnInit, WritableSignal, computed, signal, Signal, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbHighlight, ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { ColDef, DataTypeDefinition, ValueFormatterLiteParams, ValueParserLiteParams, GridApi, StatusPanelDef, SizeColumnsToContentStrategy, SizeColumnsToFitGridStrategy, SizeColumnsToFitProvidedWidthStrategy } from 'ag-grid-community';
+import { ColTypeDef, ColDef, ValueFormatterParams, ValueFormatterLiteParams, DataTypeDefinition, ValueParserLiteParams, GridApi, StatusPanelDef, SizeColumnsToContentStrategy, SizeColumnsToFitGridStrategy, SizeColumnsToFitProvidedWidthStrategy } from 'ag-grid-community';
 import 'ag-grid-enterprise';
 import { Observable } from 'rxjs';
 import { JobApplicationsService } from '../../core/services/job-applications.service';
@@ -37,7 +37,7 @@ export class ApplicationRecordsComponent implements OnInit {
     ) {
         
         this.jobDetailsForm = this.fb.group({
-            jobTitle: this.fb.control('', [ Validators.required ]),
+            job_title: this.fb.control('', [ Validators.required ]),
             jobURL: this.fb.control('', [ Validators.required ]),
             status: this.fb.control('', [ Validators.required ]),
             company: this.fb.control('', [ Validators.required ]),
@@ -46,16 +46,24 @@ export class ApplicationRecordsComponent implements OnInit {
         })
     }
 
+    public columnTypes: {
+        [key: string]: ColTypeDef;
+      } = {
+        currency: {
+          valueFormatter: currencyFormatter,
+        }
+      };
+
     // AG Grid column definitions
     colDefs: ColDef[] = [
-        { field: 'jobTitle', headerName: 'Job Title', checkboxSelection: true, rowDrag: true },
+        { field: 'job_title', headerName: 'Job Title', checkboxSelection: true, rowDrag: true },
         { field: 'company', headerName: 'Company' },
         { field: 'status', headerName: 'Status',filter: "agSetColumnFilter", cellEditor: 'agRichSelectCellEditor', cellEditorParams: { values: ['Applying', 'Applied', 'Interviewing', 'Negotiating', 'Accepted', 'Declined', 'Rejected', 'Archived'] } },
         { field: 'location', headerName: 'Location' },
         { field: 'dateApplied', headerName: 'Date Applied', cellDataType: 'dateString', cellEditor: 'agDateStringCellEditor', filter: 'agDateColumnFilter' },
         { field: 'followUpDate', headerName: 'Follow-Up Date', cellDataType: 'dateString', cellEditor: 'agDateStringCellEditor', filter: 'agDateColumnFilter' },
-        { field: 'minSalary', headerName: 'Min Salary' },
-        { field: 'maxSalary', headerName: 'Max Salary' },
+        { field: 'min_salary', headerName: 'Min Salary', type: 'currency' },
+        { field: 'max_salary', headerName: 'Max Salary', type: 'currency' },
     ];
 
     // AG Grid default options
@@ -125,6 +133,7 @@ export class ApplicationRecordsComponent implements OnInit {
         | SizeColumnsToContentStrategy = {
         type: 'fitCellContents',
     };
+
     // AG Grid data type definitions for date picker
     public dataTypeDefinitions: {
         [cellDataType: string]: DataTypeDefinition;
@@ -168,7 +177,7 @@ export class ApplicationRecordsComponent implements OnInit {
         };
     
     get jobTitleControl(): FormControl {
-        return this.jobDetailsForm.get("jobTitle") as FormControl;
+        return this.jobDetailsForm.get("job_title") as FormControl;
     }
     get jobURLControl(): FormControl {
         return this.jobDetailsForm.get("jobURL") as FormControl;
@@ -219,7 +228,7 @@ export class ApplicationRecordsComponent implements OnInit {
         let newResponse: JobApplication[] = [];
 
         if (selectedRecord && selectedRecord.length > 0) {
-            const selectedJobTitles = selectedRecord.map(record => record.jobTitle); // Extract jobTitles from selected rows
+            const selectedJobTitles = selectedRecord.map(record => record.job_title); // Extract jobTitles from selected rows
             this.jobTitlesString = selectedJobTitles.join(', '); // Convert array of jobTitles to comma-separated string
 
             this.modalService.open(deleteTemplate).result.then(
@@ -267,4 +276,11 @@ export class ApplicationRecordsComponent implements OnInit {
         return false;
     }
     
+}
+function currencyFormatter(params: ValueFormatterParams) {
+    const value = Math.floor(params.value);
+    if (isNaN(value)) {
+      return "";
+    }
+    return "£" + value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 }
