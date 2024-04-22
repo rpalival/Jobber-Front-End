@@ -1,38 +1,39 @@
-name: GitHub Pages
+name: Deploy Angular App to AWS S3
 
 on:
   push:
     branches:
-    - main
+      - main  # Set this to the branch you want to deploy from
 
 jobs:
-  deploy:
+  build_and_deploy:
     runs-on: ubuntu-latest
-    steps:
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
 
-    - name: Checkout
+    steps:
+    - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Setup Node.js
+    - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: 14
+        node-version: '14' # Set this to the node version you are using
 
-    - name: Install dependencies
+    - name: Install Angular CLI
+      run: npm install -g @angular/cli
+
+    - name: Install npm dependencies
       run: npm install
 
-    - name: Run tests
-      run: npm run test:headless
+    - name: Build production app
+      run: ng build --prod
 
-    - name: Build
-      run: npm run build:prod
-
-    - name: Deploy
-      if: success()
-      run: aws s3 sync ./dist/jobber-ui s3://jobberfrontend
+    - name: Deploy to AWS S3
+      uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --acl public-read --delete
+      env:
+        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: 'us-east-1' # Change this to your bucket's region
+        SOURCE_DIR: 'dist/jobber-ui' # Update the path according to your project's output directory
