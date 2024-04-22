@@ -20,7 +20,7 @@
     height: 100vh;
     transition: 0.3s;
   
-    width: 50px;
+    width: 60px;
     &.expanded {
 		width: 250px;
 	
@@ -167,6 +167,11 @@
         align-items: center;
         justify-content: center;
         background: #211c19;
+        align-items: center;
+        flex-direction: column;
+        padding-bottom: 10px;
+        padding: 5px;
+
 
         .avatar {
             width: 40px;

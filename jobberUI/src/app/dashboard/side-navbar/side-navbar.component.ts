@@ -17,4 +17,9 @@ export class SideNavbarComponent {
 
     auth = inject(AuthService);
     username = JSON.parse(sessionStorage.getItem('loggedInUser')!).name;
+
+    signOut() {
+        sessionStorage.removeItem('loggedInUser');
+        this.auth.signOut();
+    }
 }

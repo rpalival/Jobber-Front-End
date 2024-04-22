@@ -1,0 +1,51 @@
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    .layout_element_1 {
+        border: 1px solid #827f7f;
+        width: 100%;
+        height: 100px;
+        margin-bottom: 10px;
+        
+        .motivational-quote {
+            font-family: "Jersey 10 Charted", sans-serif; /* Stylish font */
+            font-size: 3rem; /* Adjust font size as needed */
+            text-align: center; /* Center the quote */
+            margin: 1rem; /* Add some margin for spacing */
+            color: #333; /* Adjust text color as desired */
+          }
+    }
+    .layout_element_2 {
+        border: 1px solid #827f7f;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        .progress-bar {
+            border: 1px solid #827f7f;
+            width: 30%;
+            height: 430px;
+            padding: 2em;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+
+            .btn {
+                /* Existing styles... */
+                padding: 5px; /* Adjust padding for a smaller button */
+                margin: 0; /* Remove unwanted margins */
+                font-size: 12px; /* Optional: Reduce font size if needed */
+                width: 30px; /* Allow button to shrink to content size */
+            }
+            .header{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                margin-bottom: 20px;
+            }
+        }
+        ag-charts-angular {
+            flex-grow: 1; /* Uncomment for flex grow */
+        }
+    }
+}

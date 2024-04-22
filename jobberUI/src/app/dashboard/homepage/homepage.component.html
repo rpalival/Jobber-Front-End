@@ -1,2 +1,31 @@
-<p>homepage works!</p>
-<button class="signout" (click)="signOut()">Sign Out</button>
+<div class="layout">
+    <div class="layout_element_1">
+        <h2 class="motivational-quote">
+            "The magic you are looking for is in the work you are avoiding."
+        </h2>
+    </div>
+    <div class="layout_element_2">
+        <div class="progress-bar">
+            <ng-template #content let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title">Modal title</h4>
+                    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body&hellip;</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+                </div>
+            </ng-template>
+            <div class="header">
+                <h3>Application Goal</h3>
+                <button class="btn btn-outline-dark mb-2 me-2" (click)="openSm(content)">
+                    <i class="bi bi-pencil-square"></i>
+                </button>
+            </div>
+            <ngb-progressbar class="mb-3" type="dark" [value]="50">Copying file <b>2 of 4</b>...</ngb-progressbar>
+        </div>
+        <ag-charts-angular [options]="chartOptions" />
+    </div>
+</div>

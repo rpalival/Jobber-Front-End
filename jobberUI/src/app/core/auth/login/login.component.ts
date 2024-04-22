@@ -5,21 +5,34 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth.service';
 import { NavigationExtras, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { GoogleSigninButtonModule, SocialAuthService } from '@abacritt/angularx-social-login';
 
 @Component({
 	selector: 'student-details-login',
 	standalone: true,
-	imports: [CommonModule, FormsModule],
+	imports: [CommonModule, FormsModule, GoogleSigninButtonModule],
 	templateUrl: './login.component.html',
 	styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnInit {
-
-
+export class LoginComponent {
+    // socialAuthService = inject(SocialAuthService);
+    // router = inject(Router);
+    // ngOnInit(): void {
+    //     this.socialAuthService.authState.subscribe({    
+    //         next: (result) => {
+    //             console.log(result);
+    //             localStorage.setItem('token', result.idToken);
+    //             this.router.navigate(['dashboard']);
+    //     },
+    //         error: (error) => {
+    //             console.log(error);
+    //         }
+    //     });
+    // }
     ngOnInit(): void {
         google.accounts.id.initialize({
             client_id: '45559034011-ecc5m4ure945sktlud7ph5giv7r6fkm1.apps.googleusercontent.com',
-            callback: (resp: any)=> this.handleLogin(resp)
+            callback: (resp: any)=> this.handleLogin(resp),
         });
         google.accounts.id.renderButton(document.getElementById("google-btn"),{
 
@@ -43,35 +56,8 @@ export class LoginComponent implements OnInit {
         }
     }
 
-	loginFormModel: any = {
-		username: "",
-		password: ""
-	}
 	constructor(
 		public authService: AuthService,
 		private router: Router
 	) {}
-
-	login(form: any) {
-		console.log(form);
-		this.authService.login().subscribe(
-			() => {
-				if (this.authService.isLoggedIn){
-					
-					const redirectUrl = '/dashboard';
-					
-					const navigationExtras: NavigationExtras = {
-						queryParamsHandling: 'preserve',
-						preserveFragment: true
-					};
-
-					this.router.navigate([redirectUrl], navigationExtras);
-				}
-			}
-		)
-	}
-
-	logout() {
-		this.authService.logOut();
-	}
 }

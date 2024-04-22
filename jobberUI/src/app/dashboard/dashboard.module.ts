@@ -8,8 +8,11 @@ import 'ag-grid-enterprise';
 import { HomepageComponent } from './homepage/homepage.component';
 import { SideNavbarComponent } from './side-navbar/side-navbar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CompaniesComponent } from './companies/companies.component';
+import { ContactsComponent } from './contacts/contacts.component';
 import { ApplicationRecordsComponent } from './application-records/application-records.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AgChartsAngularModule } from 'ag-charts-angular';
 
 const routes: Routes = [
     {
@@ -28,6 +31,14 @@ const routes: Routes = [
             {
                 path: 'job-tracker',
                 component: ApplicationRecordsComponent
+            },
+            {
+                path: 'companies',
+                component: CompaniesComponent
+            },
+            {
+                path: 'contacts',
+                component: ContactsComponent
             }
         ]
     },
@@ -35,7 +46,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [DashboardComponent, HomepageComponent, SideNavbarComponent, ApplicationRecordsComponent],
+  declarations: [DashboardComponent, HomepageComponent, SideNavbarComponent, ApplicationRecordsComponent, CompaniesComponent, ContactsComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -43,6 +54,7 @@ const routes: Routes = [
     NgbHighlight,
     NgbTypeaheadModule,
     AgGridModule,
+    AgChartsAngularModule,
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
@@ -52,4 +64,5 @@ const routes: Routes = [
 export class DashboardModule {
     sidebarExpanded: boolean = true;
     constructor() {}
+    
 }
