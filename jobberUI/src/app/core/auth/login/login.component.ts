@@ -1,20 +1,21 @@
-declare var google: any;
+// @ts-ignore
+declare let google: any;
 
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth.service';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { GoogleSigninButtonModule, SocialAuthService } from '@abacritt/angularx-social-login';
+import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 
 @Component({
-	selector: 'student-details-login',
-	standalone: true,
-	imports: [CommonModule, FormsModule, GoogleSigninButtonModule],
-	templateUrl: './login.component.html',
-	styleUrl: './login.component.scss'
+    selector: 'jobber-login',
+    standalone: true,
+    imports: [CommonModule, FormsModule, GoogleSigninButtonModule],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
     // socialAuthService = inject(SocialAuthService);
     // router = inject(Router);
     // ngOnInit(): void {
@@ -32,6 +33,7 @@ export class LoginComponent {
     ngOnInit(): void {
         google.accounts.id.initialize({
             client_id: '45559034011-ecc5m4ure945sktlud7ph5giv7r6fkm1.apps.googleusercontent.com',
+            // @ts-ignore
             callback: (resp: any)=> this.handleLogin(resp),
         });
         google.accounts.id.renderButton(document.getElementById("google-btn"),{
@@ -45,6 +47,7 @@ export class LoginComponent {
     private decodeToken(token: string){
         return JSON.parse(atob(token.split('.')[1]));
     }
+    // @ts-ignore
     handleLogin(response: any){
         if(response){
             //decode the token
@@ -56,8 +59,8 @@ export class LoginComponent {
         }
     }
 
-	constructor(
-		public authService: AuthService,
-		private router: Router
-	) {}
+    constructor(
+        public authService: AuthService,
+        private router: Router
+    ) {}
 }

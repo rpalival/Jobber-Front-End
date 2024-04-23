@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Contacts } from '../models/contacts.model';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ContactsService {
 
@@ -24,6 +24,7 @@ export class ContactsService {
         return this.http.delete<void>(`/api/contacts/${id}`);
     }
 
+    // @ts-ignore
     updateContact(id: number, updateData: any): Observable<Contacts> {
         return this.http.put<Contacts>(`/api/contacts/${id}/`, updateData);
     }

@@ -46,20 +46,20 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [DashboardComponent, HomepageComponent, SideNavbarComponent, ApplicationRecordsComponent, CompaniesComponent, ContactsComponent],
-  imports: [
-    CommonModule,
-    RouterModule,
-    HttpClientModule,
-    NgbHighlight,
-    NgbTypeaheadModule,
-    AgGridModule,
-    AgChartsAngularModule,
-    NgbModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule.forChild(routes)
-  ]
+    declarations: [DashboardComponent, HomepageComponent, SideNavbarComponent, ApplicationRecordsComponent, CompaniesComponent, ContactsComponent],
+    imports: [
+        CommonModule,
+        RouterModule,
+        HttpClientModule,
+        NgbHighlight,
+        NgbTypeaheadModule,
+        AgGridModule,
+        AgChartsAngularModule,
+        NgbModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule.forChild(routes)
+    ]
 })
 export class DashboardModule {
     sidebarExpanded: boolean = true;

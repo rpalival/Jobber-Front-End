@@ -1,19 +1,16 @@
-import { ColTypeDef, ColDef, ValueFormatterParams, ValueFormatterLiteParams, DataTypeDefinition, ValueParserLiteParams, GridApi, StatusPanelDef, SizeColumnsToContentStrategy, SizeColumnsToFitGridStrategy, SizeColumnsToFitProvidedWidthStrategy, CellValueChangedEvent } from 'ag-grid-community';
+import { ColDef, ValueFormatterLiteParams, DataTypeDefinition, ValueParserLiteParams, GridApi, StatusPanelDef, SizeColumnsToContentStrategy, SizeColumnsToFitGridStrategy, SizeColumnsToFitProvidedWidthStrategy, CellValueChangedEvent } from 'ag-grid-community';
 import { Observable, of } from 'rxjs';
-import { Component, OnInit, WritableSignal, computed, signal, Signal, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbHighlight, ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-
-import { JobApplication } from '../../core/models/job-application.model';
-import { JobApplicationsService } from '../../core/services/job-applications.service';
+import { ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 import { Contacts } from '../../core/models/contacts.model';
 import { ContactsService } from '../../core/services/contacts.service';
 @Component({
-  selector: 'jobber-contacts',
-  templateUrl: './contacts.component.html',
-  styleUrl: './contacts.component.scss'
+    selector: 'jobber-contacts',
+    templateUrl: './contacts.component.html',
+    styleUrl: './contacts.component.scss'
 })
 export class ContactsComponent implements OnInit{
 
@@ -21,7 +18,9 @@ export class ContactsComponent implements OnInit{
     rowData$: Observable<Contacts[]> | undefined;
     contactDetailsForm: FormGroup;
     selectedRowCount = 0;
+    // @ts-ignore
     closeResult: any;
+    // @ts-ignore
     selectedRecord: any;
     contactTitlesString: string = ''; // Declare jobTitlesString property
 
@@ -46,7 +45,7 @@ export class ContactsComponent implements OnInit{
 
         })
     }
-      colDefs: ColDef[] = [
+    colDefs: ColDef[] = [
         { field: 'fullName', headerName: 'Full Name', checkboxSelection: true, rowDrag: true },
         { field: 'company', headerName: 'Company' },
         { field: 'goal', headerName: 'Goal',filter: "agSetColumnFilter", cellEditor: 'agRichSelectCellEditor', cellEditorParams: { values: ['Informational Interview', 'Networking', 'Technical Interview', 'Job Interview', 'Onboarding', 'Request Referral', 'Research Interviewer', 'Research Career'] } },
@@ -66,52 +65,52 @@ export class ContactsComponent implements OnInit{
     }
     public statusBar: {
         statusPanels: StatusPanelDef[];
-      } = {
-        statusPanels: [
-          { statusPanel: "agTotalAndFilteredRowCountComponent" },
-          { statusPanel: "agTotalRowCountComponent" },
-          { statusPanel: "agFilteredRowCountComponent" },
-          { statusPanel: "agSelectedRowCountComponent" },
-          { statusPanel: "agAggregationComponent" },
-        ],
-      };
+    } = {
+            statusPanels: [
+                { statusPanel: "agTotalAndFilteredRowCountComponent" },
+                { statusPanel: "agTotalRowCountComponent" },
+                { statusPanel: "agFilteredRowCountComponent" },
+                { statusPanel: "agSelectedRowCountComponent" },
+                { statusPanel: "agAggregationComponent" },
+            ],
+        };
     public autoSizeStrategy:
-      | SizeColumnsToFitGridStrategy
-      | SizeColumnsToFitProvidedWidthStrategy
-      | SizeColumnsToContentStrategy = {
-      type: 'fitCellContents',
-    };
+    | SizeColumnsToFitGridStrategy
+    | SizeColumnsToFitProvidedWidthStrategy
+    | SizeColumnsToContentStrategy = {
+            type: 'fitCellContents',
+        };
     public dataTypeDefinitions: {
         [cellDataType: string]: DataTypeDefinition;
     } = {
             dateString: {
                 baseDataType: 'dateString',
                 extendsDataType: 'dateString',
-                valueParser: (params: ValueParserLiteParams<JobApplication, string>) =>
+                valueParser: (params: ValueParserLiteParams<Contacts, string>) =>
                     params.newValue != null && params.newValue.match('\\d{2}/\\d{2}/\\d{4}')
-                    ? params.newValue
-                    : null,
+                        ? params.newValue
+                        : null,
                 valueFormatter: (
-                    params: ValueFormatterLiteParams<JobApplication, string>
+                    params: ValueFormatterLiteParams<Contacts, string>
                 ) => (params.value == null ? '' : params.value),
                 dataTypeMatcher: (value: any) =>
                     typeof value === 'string' && !!value.match('\\d{2}/\\d{2}/\\d{4}'),
                 dateParser: (value: string | undefined) => {
                     if (value == null || value === '') {
-                    return undefined;
+                        return undefined;
                     }
                     const dateParts = value.split('/');
                     return dateParts.length === 3
-                    ? new Date(
-                        parseInt(dateParts[2]),
-                        parseInt(dateParts[1]) - 1,
-                        parseInt(dateParts[0])
+                        ? new Date(
+                            parseInt(dateParts[2]),
+                            parseInt(dateParts[1]) - 1,
+                            parseInt(dateParts[0])
                         )
-                    : undefined;
+                        : undefined;
                 },
                 dateFormatter: (value: Date | undefined) => {
                     if (value == null) {
-                    return undefined;
+                        return undefined;
                     }
                     const date = String(value.getDate());
                     const month = String(value.getMonth() + 1);
@@ -120,7 +119,7 @@ export class ContactsComponent implements OnInit{
                     }/${value.getFullYear()}`; // Adjust the order of month and date
                 },
             },
-    };
+        };
     selectAll(event: Event) {
         const isChecked = (event.target as HTMLInputElement).checked;
         if (isChecked) {
@@ -130,7 +129,7 @@ export class ContactsComponent implements OnInit{
         }
         this.updateSelectedCount();
     }
-    
+    // @ts-ignore
     onSelectionChanged(event: any) {
         this.updateSelectedCount();
     }
@@ -181,6 +180,7 @@ export class ContactsComponent implements OnInit{
     get emailControl(): FormControl {
         return this.contactDetailsForm.get("email") as FormControl;
     }
+    // @ts-ignore
     open(content: any){
         this.modalService.open(content).result.then(
             (result) => {
@@ -223,6 +223,7 @@ export class ContactsComponent implements OnInit{
                 }
             );
     }
+    // @ts-ignore
     private getDismissReason(reason: any): string {
         if (reason === ModalDismissReasons.ESC) {
             return "by pressing ESC";
@@ -240,18 +241,19 @@ export class ContactsComponent implements OnInit{
         const applicationData = this.contactDetailsForm.value; 
         
         this.contactsService.createContact(applicationData)
-          .subscribe(
-            (createdApplication) => {
-              console.log('Company created:', createdApplication);
-              // Handle successful submission (e.g., update UI)
-            },
-            (error) => {
-              console.error('Error creating application:', error);
-              // Handle errors 
-            }
-        );
+            .subscribe(
+                (createdApplication) => {
+                    console.log('Company created:', createdApplication);
+                    // Handle successful submission (e.g., update UI)
+                },
+                (error) => {
+                    console.error('Error creating application:', error);
+                    // Handle errors 
+                }
+            );
     }
 
+    // @ts-ignore
     onDeletedRecord(deleteTemplate: any) {
         const selectedRecord = this.gridApi?.getSelectedRows();
         console.log(`Selected records:`, selectedRecord);

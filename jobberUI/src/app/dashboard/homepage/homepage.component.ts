@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject, TemplateRef } from '@angular/core';
+import { Component, OnInit, inject, TemplateRef } from '@angular/core';
 import { AgChartOptions, PixelSize } from "ag-charts-community";
 import { AgBarSeriesOptions } from 'ag-grid-enterprise';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -54,9 +54,10 @@ export class HomepageComponent implements OnInit {
             ]
         }
     }
+    
     openSm(content: TemplateRef<any>) {
-		this.modalService.open(content, { size: 'sm' });
-	}
+        this.modalService.open(content, { size: 'sm' });
+    }
     ngOnInit() {
         this.data = this.jobApplicationsService.callGetJobApplications();
         this.data.subscribe(data => {
@@ -67,11 +68,11 @@ export class HomepageComponent implements OnInit {
     processData(data: JobApplication[]): void {
         const statusCounts: { [status: string]: number } = {};
         data.forEach(application => {
-          const status = application.status; // Assuming "status" is a property in JobApplication
-          if (!statusCounts[status]) {
-            statusCounts[status] = 0;
-          }
-          statusCounts[status]++;
+            const status = application.status; // Assuming "status" is a property in JobApplication
+            if (!statusCounts[status]) {
+                statusCounts[status] = 0;
+            }
+            statusCounts[status]++;
         });
       
         console.log("Status Counts:");

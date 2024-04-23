@@ -1,4 +1,5 @@
-declare var google: any;
+// @ts-ignore
+declare let google: any;
 import { Injectable, inject } from "@angular/core";
 
 import { Observable, of } from "rxjs";

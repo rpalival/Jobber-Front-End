@@ -1,6 +1,6 @@
-import { Component, OnInit, WritableSignal, computed, signal, Signal, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbHighlight, ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ColTypeDef, ColDef, ValueFormatterParams, ValueFormatterLiteParams, DataTypeDefinition, ValueParserLiteParams, GridApi, StatusPanelDef, SizeColumnsToContentStrategy, SizeColumnsToFitGridStrategy, SizeColumnsToFitProvidedWidthStrategy, CellValueChangedEvent } from 'ag-grid-community';
 import 'ag-grid-enterprise';
 import { Observable } from 'rxjs';
@@ -23,7 +23,9 @@ export class ApplicationRecordsComponent implements OnInit {
     rowData$: Observable<JobApplication[]> | undefined;
     jobDetailsForm: FormGroup;
     selectedRowCount = 0;
+    // @ts-ignore
     closeResult: any;
+    // @ts-ignore
     selectedRecord: any;
     jobTitlesString: string = ''; // Declare jobTitlesString property
 
@@ -50,11 +52,11 @@ export class ApplicationRecordsComponent implements OnInit {
 
     public columnTypes: {
         [key: string]: ColTypeDef;
-      } = {
-        currency: {
-          valueFormatter: currencyFormatter,
-        }
-      };
+    } = {
+            currency: {
+                valueFormatter: currencyFormatter,
+            }
+        };
 
     // AG Grid column definitions
     colDefs: ColDef[] = [
@@ -111,30 +113,30 @@ export class ApplicationRecordsComponent implements OnInit {
         this.gridApi?.setColumnFilterModel("status", filterValue === "All Jobs" ? null : {
             values: [filterValue],
         })
-        .then(() => {
-            this.gridApi?.onFilterChanged();
-        });
+            .then(() => {
+                this.gridApi?.onFilterChanged();
+            });
     }
 
     // AG Grid status bar
     public statusBar: {
         statusPanels: StatusPanelDef[];
-      } = {
-        statusPanels: [
-          { statusPanel: "agTotalAndFilteredRowCountComponent" },
-          { statusPanel: "agTotalRowCountComponent" },
-          { statusPanel: "agFilteredRowCountComponent" },
-          { statusPanel: "agSelectedRowCountComponent" },
-          { statusPanel: "agAggregationComponent" },
-        ],
-      };
+    } = {
+            statusPanels: [
+                { statusPanel: "agTotalAndFilteredRowCountComponent" },
+                { statusPanel: "agTotalRowCountComponent" },
+                { statusPanel: "agFilteredRowCountComponent" },
+                { statusPanel: "agSelectedRowCountComponent" },
+                { statusPanel: "agAggregationComponent" },
+            ],
+        };
 
     public autoSizeStrategy:
-        | SizeColumnsToFitGridStrategy
-        | SizeColumnsToFitProvidedWidthStrategy
-        | SizeColumnsToContentStrategy = {
-        type: 'fitCellContents',
-    };
+    | SizeColumnsToFitGridStrategy
+    | SizeColumnsToFitProvidedWidthStrategy
+    | SizeColumnsToContentStrategy = {
+            type: 'fitCellContents',
+        };
 
     // AG Grid data type definitions for date picker
     public dataTypeDefinitions: {
@@ -145,29 +147,30 @@ export class ApplicationRecordsComponent implements OnInit {
                 extendsDataType: 'dateString',
                 valueParser: (params: ValueParserLiteParams<JobApplication, string>) =>
                     params.newValue != null && params.newValue.match('\\d{2}/\\d{2}/\\d{4}')
-                    ? params.newValue
-                    : null,
+                        ? params.newValue
+                        : null,
                 valueFormatter: (
                     params: ValueFormatterLiteParams<JobApplication, string>
                 ) => (params.value == null ? '' : params.value),
+                // @ts-ignore
                 dataTypeMatcher: (value: any) =>
                     typeof value === 'string' && !!value.match('\\d{2}/\\d{2}/\\d{4}'),
                 dateParser: (value: string | undefined) => {
                     if (value == null || value === '') {
-                    return undefined;
+                        return undefined;
                     }
                     const dateParts = value.split('/');
                     return dateParts.length === 3
-                    ? new Date(
-                        parseInt(dateParts[2]),
-                        parseInt(dateParts[1]) - 1,
-                        parseInt(dateParts[0])
+                        ? new Date(
+                            parseInt(dateParts[2]),
+                            parseInt(dateParts[1]) - 1,
+                            parseInt(dateParts[0])
                         )
-                    : undefined;
+                        : undefined;
                 },
                 dateFormatter: (value: Date | undefined) => {
                     if (value == null) {
-                    return undefined;
+                        return undefined;
                     }
                     const date = String(value.getDate());
                     const month = String(value.getMonth() + 1);
@@ -209,6 +212,7 @@ export class ApplicationRecordsComponent implements OnInit {
         return this.jobDetailsForm.get("follow_up_date") as FormControl;
     }
 
+    // @ts-ignore
     open(content: any){
         this.modalService.open(content).result.then(
             (result) => {
@@ -257,6 +261,7 @@ export class ApplicationRecordsComponent implements OnInit {
             );
     }
 
+    // @ts-ignore
     private getDismissReason(reason: any): string {
         if (reason === ModalDismissReasons.ESC) {
             return "by pressing ESC";
@@ -276,18 +281,20 @@ export class ApplicationRecordsComponent implements OnInit {
         const applicationData = this.jobDetailsForm.value; 
         
         this.jobApplicationsService.createJobApplication(applicationData)
-          .subscribe(
-            (createdApplication) => {
-              console.log('Application created:', createdApplication);
-              // Handle successful submission (e.g., update UI)
-            },
-            (error) => {
-              console.error('Error creating application:', error);
-              // Handle errors 
-            }
-        );
+            .subscribe(
+                (createdApplication) => {
+                    console.log('Application created:', createdApplication);
+                    // Handle successful submission (e.g., update UI)
+                },
+                (error) => {
+                    console.error('Error creating application:', error);
+                    // Handle errors 
+                }
+            );
     }
 
+
+    // @ts-ignore
     onDeletedRecord(deleteTemplate: any) {
         const selectedRecord = this.gridApi?.getSelectedRows();
         console.log(`Selected records:`, selectedRecord);
@@ -348,7 +355,7 @@ export class ApplicationRecordsComponent implements OnInit {
 function currencyFormatter(params: ValueFormatterParams) {
     const value = Math.floor(params.value);
     if (isNaN(value)) {
-      return "";
+        return "";
     }
     return "$" + value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 }

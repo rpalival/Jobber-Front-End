@@ -15,22 +15,22 @@ export const appConfig: ApplicationConfig = {
         {
             provide: 'SocialAuthServiceConfig',
             useValue: {
-              autoLogin: false,
-              providers: [
-                {
-                  id: GoogleLoginProvider.PROVIDER_ID,
-                  provider: new GoogleLoginProvider(
-                    '45559034011-ecc5m4ure945sktlud7ph5giv7r6fkm1.apps.googleusercontent.com',
+                autoLogin: false,
+                providers: [
                     {
-                        oneTapEnabled: false,
-                        prompt: 'consent'
+                        id: GoogleLoginProvider.PROVIDER_ID,
+                        provider: new GoogleLoginProvider(
+                            '45559034011-ecc5m4ure945sktlud7ph5giv7r6fkm1.apps.googleusercontent.com',
+                            {
+                                oneTapEnabled: false,
+                                prompt: 'consent'
+                            }
+                        )
                     }
-                  )
+                ],
+                onError: (err) => {
+                    console.error(err);
                 }
-              ],
-              onError: (err) => {
-                console.error(err);
-              }
             } as SocialAuthServiceConfig,
         }
     ]

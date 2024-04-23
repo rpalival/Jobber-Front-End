@@ -1,18 +1,18 @@
-import { ColTypeDef, ColDef, GridApi, StatusPanelDef, SizeColumnsToContentStrategy, SizeColumnsToFitGridStrategy, SizeColumnsToFitProvidedWidthStrategy, CellValueChangedEvent } from 'ag-grid-community';
+import { ColDef, GridApi, StatusPanelDef, SizeColumnsToContentStrategy, SizeColumnsToFitGridStrategy, SizeColumnsToFitProvidedWidthStrategy, CellValueChangedEvent } from 'ag-grid-community';
 import { Observable, of } from 'rxjs';
-import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbHighlight, ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Companies } from '../../core/models/companies.model';
 import { CompaniesService } from '../../core/services/companies.service';
 
 
 
 @Component({
-  selector: 'jobber-companies',
-  templateUrl: './companies.component.html',
-  styleUrl: './companies.component.scss'
+    selector: 'jobber-companies',
+    templateUrl: './companies.component.html',
+    styleUrl: './companies.component.scss'
 })
 export class CompaniesComponent implements OnInit{
 
@@ -20,7 +20,9 @@ export class CompaniesComponent implements OnInit{
     rowData$: Observable<Companies[]> | undefined;
     companyDetailsForm: FormGroup;
     selectedRowCount = 0;
+    // @ts-ignore
     closeResult: any;
+    // @ts-ignore
     selectedRecord: any;
     companyTitlesString: string = ''; // Declare jobTitlesString property
 
@@ -56,21 +58,21 @@ export class CompaniesComponent implements OnInit{
     }
     public statusBar: {
         statusPanels: StatusPanelDef[];
-      } = {
-        statusPanels: [
-          { statusPanel: "agTotalAndFilteredRowCountComponent" },
-          { statusPanel: "agTotalRowCountComponent" },
-          { statusPanel: "agFilteredRowCountComponent" },
-          { statusPanel: "agSelectedRowCountComponent" },
-          { statusPanel: "agAggregationComponent" },
-        ],
-      };
+    } = {
+            statusPanels: [
+                { statusPanel: "agTotalAndFilteredRowCountComponent" },
+                { statusPanel: "agTotalRowCountComponent" },
+                { statusPanel: "agFilteredRowCountComponent" },
+                { statusPanel: "agSelectedRowCountComponent" },
+                { statusPanel: "agAggregationComponent" },
+            ],
+        };
     public autoSizeStrategy:
-      | SizeColumnsToFitGridStrategy
-      | SizeColumnsToFitProvidedWidthStrategy
-      | SizeColumnsToContentStrategy = {
-      type: 'fitCellContents',
-    };
+    | SizeColumnsToFitGridStrategy
+    | SizeColumnsToFitProvidedWidthStrategy
+    | SizeColumnsToContentStrategy = {
+            type: 'fitCellContents',
+        };
 
     selectAll(event: Event) {
         const isChecked = (event.target as HTMLInputElement).checked;
@@ -82,6 +84,7 @@ export class CompaniesComponent implements OnInit{
         this.updateSelectedCount();
     }
     
+    // @ts-ignore
     onSelectionChanged(event: any) {
         this.updateSelectedCount();
     }
@@ -118,6 +121,7 @@ export class CompaniesComponent implements OnInit{
         return this.companyDetailsForm.get("linkedin") as FormControl;
     }
 
+    // @ts-ignore
     open(content: any){
         this.modalService.open(content).result.then(
             (result) => {
@@ -160,6 +164,7 @@ export class CompaniesComponent implements OnInit{
                 }
             );
     }
+    // @ts-ignore
     private getDismissReason(reason: any): string {
         if (reason === ModalDismissReasons.ESC) {
             return "by pressing ESC";
@@ -177,18 +182,19 @@ export class CompaniesComponent implements OnInit{
         const applicationData = this.companyDetailsForm.value; 
         
         this.companiesService.createCompany(applicationData)
-          .subscribe(
-            (createdApplication) => {
-              console.log('Company created:', createdApplication);
-              // Handle successful submission (e.g., update UI)
-            },
-            (error) => {
-              console.error('Error creating application:', error);
-              // Handle errors 
-            }
-        );
+            .subscribe(
+                (createdApplication) => {
+                    console.log('Company created:', createdApplication);
+                    // Handle successful submission (e.g., update UI)
+                },
+                (error) => {
+                    console.error('Error creating application:', error);
+                    // Handle errors 
+                }
+            );
     }
 
+    // @ts-ignore
     onDeletedRecord(deleteTemplate: any) {
         const selectedRecord = this.gridApi?.getSelectedRows();
         console.log(`Selected records:`, selectedRecord);
