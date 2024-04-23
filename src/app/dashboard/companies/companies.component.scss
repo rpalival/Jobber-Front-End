@@ -1,0 +1,199 @@
+$btn-outline-dark-bg: #211c19;
+$btn-dark-bg: #211c19;
+
+.grid-section {
+    border-width: 0.1em;
+    border-style: solid;
+    border-color: rgb(0, 0, 0, 0.1);
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+
+    .selection-delete-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    .add-and-filter-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .selection-bar {
+        border : 1px solid #121111;
+        padding: 4px 10px 4px 10px;
+        border-radius: 10px;
+    }
+
+    .filter-wrapper {
+        display: flex; /* Allow side-by-side placement */
+        align-items: center; /* Vertically center icon and text */
+      }
+      
+      .filter-input {
+        border-radius: 0.25rem; /* Adjust border radius as needed */
+        border: 1px solid #444649; /* Optional: Set border style */
+      }
+      
+      .bi-search {
+        font-size: 1.2rem; /* Adjust icon size as needed */
+        color: #444649; /* Adjust icon color as needed */
+      }
+    
+    button {
+        & + button {
+            margin-left: 20px; // Custom distance between buttons
+        }
+
+        
+
+        &.btn-dark {
+            background-color: $btn-dark-bg;
+            border-color: $btn-dark-bg;
+            color: #fff; // Change text color if needed
+        }
+    }
+}
+
+.filter-section {
+    border-width: 0.1em;
+    border-style: solid;
+    border-color: rgb(0, 0, 0, 0.1);
+    padding: 12px;
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+
+    
+    button {
+        & + button {
+            margin-left: 20px; // Custom distance between buttons
+        }
+
+        padding: 9px 18px;
+        flex-grow: 1;
+        margin: 5px;
+        
+
+        // &.btn-outline-dark {
+        //     background-color: $btn-outline-dark-bg;
+        //     border-color: $btn-outline-dark-bg;
+        //     color: #fff; // Change text color if needed
+        // }
+
+        &.btn-dark {
+            background-color: $btn-dark-bg;
+            border-color: $btn-dark-bg;
+            color: #fff; // Change text color if needed
+        }
+    }
+}
+
+.companies-entry-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+    border: 1px solid #f0f0f0;
+    padding: 16px;
+    border-radius: 8px;
+    
+    &__form-row {
+        display: flex;
+        flex-direction: column;
+        max-width: 650px;
+        padding: 0px 0px 16px 0px;
+
+        &--input-section {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            min-width: 650px;
+            gap: 16px;
+            padding: 8px;
+
+            & > span {
+                flex: 1;
+            }
+        }
+
+        &--input-address {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-width: 650px;
+            padding: 8px;
+
+            & > div {
+                flex: 1;
+            }
+
+            & > span {
+                flex: 1;
+            }
+        }
+
+        &--input-buttons {
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+            gap: 8px;
+        }
+    }
+
+    & label {
+        font-size: small;
+    }
+}
+
+.input-group {
+    flex: 1;
+}
+
+.align-center {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+}
+
+.declaration-input {
+    display: flex;
+    flex-direction: row;
+
+    &__input {
+        margin-left: 8px;
+    }
+}
+
+.field-label {
+    height: 36px;
+    border: 1px solid #f0f0f0;
+    padding: 4px 0px 4px 12px;
+}
+
+.applications-entry {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+}
+
+.records-grid {
+    height: 800px;
+    width: 100%;
+}
+
+.add-btn-container {
+    display: flex;
+    flex-direction: row;
+    padding: 16px;
+    gap: 20px;
+
+    &__action-button {
+        border: 1px solid #fff;
+        border-radius: 4px;
+    }
+}

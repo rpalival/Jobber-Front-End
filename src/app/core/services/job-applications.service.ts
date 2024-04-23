@@ -12,10 +12,18 @@ export class JobApplicationsService {
     ) {}
 
     callGetJobApplications(): Observable<JobApplication[]> {
-        return this.http.get<JobApplication[]>('/api/r_applications/');
+        return this.http.get<JobApplication[]>('/api/applications/');
+    }
+
+    createJobApplication(applicationData: JobApplication): Observable<JobApplication> {
+        return this.http.post<JobApplication>('/api/job-applications/', applicationData)
     }
 
     deleteJobApplication(id: number): Observable<void> {
-        return this.http.delete<void>('/api/jobApplications/${id}');
+        return this.http.delete<void>(`/api/applications/${id}`);
+    }
+
+    updateJobApplication(id: number, updateData: any): Observable<JobApplication> {
+        return this.http.put<JobApplication>(`/api/applications/${id}/`, updateData);
     }
 }

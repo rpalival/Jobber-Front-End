@@ -3,13 +3,13 @@ import { CanMatchFn, Router } from "@angular/router";
 
 import { AuthService } from "./auth.service";
 
-export const authGuardGuard: CanMatchFn = (route, segments) => {
+export const authGuardGuard: CanMatchFn = (_route, _segments) => {
     const router = inject( Router );
     const authService = inject( AuthService );
 
     if (authService.isLoggedIn) {
-      	return true;
+        return true;
     }
 
-	return router.createUrlTree(['/login']);
+    return router.createUrlTree(['/login']);
 };

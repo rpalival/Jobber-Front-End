@@ -1,0 +1,102 @@
+
+<div class="grid-section">
+    <div class="selection-delete-bar">
+        <div class="selection-bar">
+            <input type="checkbox" class="form-check-input" id="selectAllCheckbox" (change)="selectAll($event)">
+            <label class="form-check-label" for="selectAllCheckbox">
+              <span class="selected-count" style="margin-right: 5px;">{{ selectedRowCount }} Selected</span>
+            </label>
+        </div>
+        <button type="button" class="btn btn-outline-danger btn-sm" [hidden]="!checkIfSelected()" (click)="onDeletedRecord(confirmDeleteModal)">
+            <i class="bi bi-trash"></i>
+            <span style="margin-left: 5px;">Delete</span>
+        </button>
+    </div>
+    <div class="add-and-filter-bar">
+        <div class="filter-wrapper">
+            <input
+                type="text"
+                class="form-control form-control-sm filter-input"
+                placeholder="Filter Companies"
+            />
+            <i class="bi bi-search ms-2"></i>
+        </div>
+        <button class="btn btn-dark" style="margin-left: 10px;" (click)="open(companiesForm)">Add a New Company</button>
+    </div>
+</div>
+<div class="companies-entry">
+    <ng-template #companiesForm let-modal>
+        <form class="companies-entry-form" [formGroup]="companyDetailsForm" (ngSubmit)="onSubmit()">
+            <div class="companies-entry-form__form-row--input-section">
+                <span class="form-group">
+                    <label for="inputName">Company Name</label>
+                    <input id="inputName" [formControl]="nameControl" type="text" class="form-control" placeholder="Company Name">
+                </span>
+            </div>
+            <div class="companies-entry-form__form-row--input-section">
+                <span class="form-group">
+                    <label for="inputName">Industry</label>
+                    <input id="inputName" [formControl]="industryControl" type="text" class="form-control" placeholder="Healthcare">
+                </span>
+            </div>
+            <div class="companies-entry-form__form-row--input-section">
+                <span class="form-group">
+                    <label for="inputName">Location</label>
+                    <input id="inputName" [formControl]="locationControl" type="text" class="form-control" placeholder="State, Country">
+                </span>
+            </div>
+            <div class="companies-entry-form__form-row--input-section">
+                <span class="form-group">
+                    <label for="inputName">Website</label>
+                    <input id="inputName" [formControl]="websiteControl" type="text" class="form-control" placeholder="Company website URL">
+                </span>
+            </div>
+            <div class="companies-entry-form__form-row--input-section">
+                <span class="form-group">
+                    <label for="inputName">LinkedIn</label>
+                    <input id="inputName" [formControl]="linkedinControl" type="text" class="form-control" placeholder="Company LinkedIn">
+                </span>
+            </div>
+            <div class="companies-entry-form__form-row--input-buttons">
+                <button type="submit" class="btn btn-dark" (click)="modal.close()" [disabled]="!companyDetailsForm.valid">Submit</button>
+                <button type="submit" class="btn btn-light" (click)="modal.dismiss()">Cancel</button>
+            </div>
+        </form>
+    </ng-template>
+    <ag-grid-angular
+        style = "width: 100%; height: 570px;"
+        class = "ag-theme-alpine records-grid"
+        (gridReady) = "onGrindReady($event)"
+        [rowData] = "rowData$ | async"
+        [rowSelection]="'multiple'"
+        [autoSizeStrategy]="autoSizeStrategy"
+        [columnDefs]="colDefs"
+        [defaultColDef]="defaultColDef"
+        [animateRows]="true"
+        [rowGroupPanelShow]="'always'"
+        [sideBar]="true"
+        [statusBar]="statusBar"
+        [rowDragManaged]="true"
+        (selectionChanged)="onSelectionChanged($event)"
+    >
+    </ag-grid-angular>
+    <ng-template #confirmDeleteModal let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-title">Profile Deletion</h4>
+            <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <p>
+                <strong>Are you sure you want to delete <span class="text-rpimary">{{ companyTitlesString }}</span> applications?</strong>
+            </p>
+            <p>
+                All the information about this used will be deleted from the application
+                <span class="text-dager">This operation can not be undone.</span>
+            </p>
+            <div class="modal-footer">
+                <button class="btn-outliner-secondary btn" (click)="modal.dismiss('Close button clicked')">Cancel</button>
+                <button class="btn btn-danger" (click)="modal.close('Ok click')">Ok</button>
+            </div>
+        </div>
+    </ng-template>
+</div>

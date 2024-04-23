@@ -19,10 +19,6 @@
               <span class="selected-count" style="margin-right: 5px;">{{ selectedRowCount }} Selected</span>
             </label>
         </div>
-        <button type="button" class="btn btn-outline-dark btn-sm" style="margin-left: 10px">
-            <i class="bi bi-pencil-square"></i>
-            <span style="margin-left: 5px;">Status</span>
-        </button>
         <button type="button" class="btn btn-outline-danger btn-sm" [hidden]="!checkIfSelected()" (click)="onDeletedRecord(confirmDeleteModal)">
             <i class="bi bi-trash"></i>
             <span style="margin-left: 5px;">Delete</span>
@@ -42,7 +38,7 @@
 </div>
 <div class="applications-entry">
     <ng-template #applicationsForm let-modal>
-        <form class="application-entry-form">
+        <form class="application-entry-form" [formGroup]="jobDetailsForm" (ngSubmit)="onSubmit()">
             <div class="application-entry-form__form-row--input-section">
                 <span class="form-group">
                     <label for="inputName">Job Title</label>
@@ -58,7 +54,7 @@
             <div class="application-entry-form__form-row--input-section">
                 <span class="form-group">
                     <label for="inputName">Application Status</label>
-                    <select id="inputName" [formControl]="jobURLControl" type="text" class="form-control" placeholder="Applying">
+                    <select id="inputName" [formControl]="statusControl" type="text" class="form-control" placeholder="Applying">
                         <option>Applying</option>
                         <option>Applied</option>
                         <option>Interviewing</option>
@@ -84,12 +80,36 @@
             </div>
             <div class="application-entry-form__form-row--input-section">
                 <span class="form-group">
+                    <label for="inputName">Min Salary</label>
+                    <input id="inputName" [formControl]="minSalaryControl" type="text" class="form-control" placeholder="80000">
+                </span>
+            </div>
+            <div class="application-entry-form__form-row--input-section">
+                <span class="form-group">
+                    <label for="inputName">Max Salary</label>
+                    <input id="inputName" [formControl]="maxSalaryControl" type="text" class="form-control" placeholder="100000">
+                </span>
+            </div>
+            <div class="application-entry-form__form-row--input-section">
+                <span class="form-group">
+                    <label for="inputName">Date Applied</label>
+                    <input id="inputName" [formControl]="dateAppliedControl" type="text" class="form-control" placeholder="YYYY-MM-DD">
+                </span>
+            </div>
+            <div class="application-entry-form__form-row--input-section">
+                <span class="form-group">
+                    <label for="inputName">Follow-Up Date</label>
+                    <input id="inputName" [formControl]="followUpDateControl" type="text" class="form-control" placeholder="YYYY-MM-DD">
+                </span>
+            </div>
+            <div class="application-entry-form__form-row--input-section">
+                <span class="form-group">
                     <label for="inputName">Job Description</label>
                     <textarea id="inputName" [formControl]="jobDescriptionControl" type="text" class="form-control" placeholder="Copy Paste the entire Job Description"></textarea>
                 </span>
             </div>
             <div class="application-entry-form__form-row--input-buttons">
-                <button type="submit" class="btn btn-dark" (click)="modal.close()" [disabled]="jobDetailsForm.status === 'INVALID'">Submit</button>
+                <button type="submit" class="btn btn-dark" (click)="modal.close()" [disabled]="!jobDetailsForm.valid">Submit</button>
                 <button type="submit" class="btn btn-light" (click)="modal.dismiss()">Cancel</button>
             </div>
         </form>
@@ -112,6 +132,7 @@
         [statusBar]="statusBar"
         [rowDragManaged]="true"
         (selectionChanged)="onSelectionChanged($event)"
+
     >
     </ag-grid-angular>
     <ng-template #confirmDeleteModal let-modal>
