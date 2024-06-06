@@ -1,4 +1,5 @@
-# JobberUI
+# JobberUI: Front-End Repository
+# The Back-End Repository / Project Wiki is at another location: https://github.com/OmarAbdelmotaleb/Jobber
 
 
 https://github.com/rpalival/Jobber-Front-End/assets/112983661/726403e5-6629-4c28-b225-3e7b55d3774f
